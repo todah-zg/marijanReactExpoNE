@@ -25,6 +25,7 @@ workflows:
     scripts:
       - name: Install dependencies and Expo CLI, and eject app
         script: |
+          yarn add expo
           npm install
           npm install -g expo-cli
           expo eject
