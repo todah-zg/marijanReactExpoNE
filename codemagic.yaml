@@ -5,7 +5,6 @@ workflows:
   react-native-android:
     name: React Native Android
     max_build_duration: 120
-    instance_type: linux_x2
     environment:
       groups:
         # Add the group environment variables in Codemagic UI (either in Application/Team variables) - https://docs.codemagic.io/variables/environment-variable-groups/
@@ -26,25 +25,20 @@ workflows:
     scripts:
       - name: Install dependencies and Expo CLI, and eject app
         script: |
-          #!/usr/bin/env zsh
           yarn install
           yarn global add expo-cli
           expo eject
       - name: Set up app/build.gradle
         script: |
-          #!/usr/bin/env zsh
           mv ./support-files/build.gradle android/app
       - name: Set Android SDK location
         script: |
-          #!/usr/bin/env zsh
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
       - name: Set up keystore
         script: |
-          #!/usr/bin/env zsh
           echo $CM_KEYSTORE | base64 --decode > $CM_BUILD_DIR/keystore.keystore
       - name: Build Android release
         script: |
-          #!/usr/bin/env zsh
           # Set environment variable so it can be used to increment build number in android/app/build.gradle
           # Note that tracks can be specified when retrieving latest build number from Google Play, for example:
           # export NEW_BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks=internal) + 1))
