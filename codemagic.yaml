@@ -27,6 +27,8 @@ workflows:
         script: |
           yarn install
           yarn global add expo-cli
+          npm install
+          npm install -g expo-cli
           expo eject
       - name: Set up app/build.gradle
         script: |
