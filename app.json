@@ -5,12 +5,12 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
-  },
-  "ios": {
-    "bundleIdentifier": "io.codemagic.marijan.reactexpone"
-  },
-  "android": {
-    "package": "io.codemagic.marijan.reactexpone"
+    ],
+    "ios": {
+      "bundleIdentifier": "io.codemagic.marijan.reactexpone"
+    },
+    "android": {
+      "package": "io.codemagic.marijan.reactexpone"
+    }
   }
 }
