@@ -26,11 +26,13 @@ workflows:
     scripts:
       - name: Install dependencies and Expo CLI, and eject app
         script: |
+          #!/usr/bin/env zsh
           yarn install
           yarn global add expo-cli
           expo eject
       - name: Set up app/build.gradle
         script: |
+          #!/usr/bin/env zsh
           mv ./support-files/build.gradle android/app
       - name: Set Android SDK location
         script: |
