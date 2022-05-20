@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "marijanReactExpoNE",
+    "slug": "marijanReactExpoNE",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
