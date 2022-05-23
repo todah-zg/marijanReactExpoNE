@@ -48,7 +48,6 @@ workflows:
 
           # Use package.json 'version' property to set the 'versionName' propery in app/build.gradle
           export PACKAGE_VERSION=$(cat $CM_BUILD_DIR/package.json | jq -r '.version')
-          export NEW_BUILD_NUMBER=2
           # Create an application bundle (.aab)
           cd android && ./gradlew bundleRelease
     artifacts:
