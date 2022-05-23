@@ -25,8 +25,10 @@ workflows:
     scripts:
       - name: Get version number
         script: |
-          export NEW_BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks=internal) + 1))
-          export TEST=$(($(google-play get-latest-build-number --package-name "io.codemagic.marijan.reactexpone" --tracks=internal) + 1))
+          NEW_BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks=internal) + 1))
+          if [ -z NEW_BUILD_NUMBER ]; then
+              exit 1
+          fi
       - name: Install dependencies and Expo CLI, and eject app
         script: |
           yarn add expo
