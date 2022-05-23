@@ -140,12 +140,13 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+    def newBuildNumber = Integer.valueOf(System.getenv()["NEW_BUILD_NUMBER"])
     defaultConfig {
         applicationId "com.marijanreactexpone"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        //versionCode 1
-        //versionName "1.0"
+        versionCode newBuildNumber
+        versionName "1.0" + String.valueOf(newBuildNumber)
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
