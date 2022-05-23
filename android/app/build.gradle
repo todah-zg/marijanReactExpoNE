@@ -145,8 +145,8 @@ android {
         applicationId "com.marijanreactexpone"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode newBuildNumber
-        versionName "1.0" + String.valueOf(newBuildNumber)
+        //versionCode newBuildNumber
+        //versionName "1.0" + String.valueOf(newBuildNumber)
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
