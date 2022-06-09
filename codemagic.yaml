@@ -4,6 +4,7 @@
 workflows:
   react-native-android:
     name: React Native Android
+    instance_type: mac_pro
     max_build_duration: 120
     environment:
       groups:
@@ -22,13 +23,24 @@ workflows:
     #        - pattern: develop
     #          include: true
     #          source: true
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch paterns:
+        - pattern: 'master'
+          include: true
+          source: false
     scripts:
-      - name: Get version number
+      - name: Message
         script: |
-          NEW_BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks=internal) + 1))
-          if [ -z NEW_BUILD_NUMBER ]; then
-              exit 1
-          fi
+          echo "Main branch before changes"
+      #- name: Get version number
+      #  script: |
+      #    NEW_BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks=internal) + 1))
+      #    if [ -z NEW_BUILD_NUMBER ]; then
+      #        exit 1
+      #    fi
       - name: Install dependencies and Expo CLI, and eject app
         script: |
           yarn add expo
@@ -44,16 +56,16 @@ workflows:
       - name: Set up keystore
         script: |
           echo $CM_KEYSTORE | base64 --decode > $CM_BUILD_DIR/keystore.keystore
-      - name: Build Android release
-        script: |
-          NEW_BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks=internal) + 1))
+      #- name: Build Android release
+      #  script: |
+       #   NEW_BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks=internal) + 1))
           # Use package.json 'version' property to set the 'versionName' propery in app/build.gradle
-          export PACKAGE_VERSION=$(cat $CM_BUILD_DIR/package.json | jq -r '.version')
+       #   export PACKAGE_VERSION=$(cat $CM_BUILD_DIR/package.json | jq -r '.version')
           # Create an application bundle (.aab)
-          cd android && ./gradlew bundleRelease -PversionCode=$NEW_BUILD_NUMBER -PversionName=1.0.$NEW_BUILD_NUMBER
-    artifacts:
-      - android/app/build/outputs/**/*.aab
-    publishing:
+       #  cd android && ./gradlew bundleRelease -PversionCode=$NEW_BUILD_NUMBER -PversionName=1.0.$NEW_BUILD_NUMBER
+  #  artifacts:
+ #     - android/app/build/outputs/**/*.aab
+#    publishing:
       # See the following link for details about email publishing - https://docs.codemagic.io/publishing-yaml/distribution/#email
       #      email:
       #        recipients:
@@ -69,8 +81,9 @@ workflows:
       #        notify:
       #          success: true               # To not receive a notification when a build succeeds
       #          failure: false              # To not receive a notification when a build fails
-      google_play:
-        # See the following link for information regarding publishing to Google Play - https://docs.codemagic.io/publishing-yaml/distribution/#google-play
-        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: internal   # Any default or custom track that is not in ‘draft’ status
-        submit_as_draft: true
+ #     google_play:
+
+       # See the following link for information regarding publishing to Google Play - https://docs.codemagic.io/publishing-yaml/distribution/#google-play
+#        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+ #       track: internal   # Any default or custom track that is not in ‘draft’ status
+  #      submit_as_draft: true
