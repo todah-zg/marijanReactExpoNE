@@ -27,7 +27,7 @@ workflows:
       events:
         - push
         - pull_request
-      branch paterns:
+      branch_paterns:
         - pattern: 'master'
           include: true
           source: false
