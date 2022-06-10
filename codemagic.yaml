@@ -33,7 +33,7 @@ workflows:
     scripts:
       - name: Message
         script: |
-          echo "Main branch after the fact"
+          echo "New main branch test. Before pull rq."
       #- name: Get version number
       #  script: |
       #    NEW_BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks=internal) + 1))
